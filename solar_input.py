@@ -77,7 +77,6 @@ def parse_planet_parameters(line, planet):
     planet.y = float(line.split()[5])
     planet.Vx = float(line.split()[6])
     planet.Vy = float(line.split()[7])
-    print(planet.Vx,planet.Vy)
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
