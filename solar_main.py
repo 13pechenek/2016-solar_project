@@ -34,7 +34,7 @@ def execution():
     """
     global physical_time
     global displayed_time
-    recalculate_space_objects_positions(space_objects, time_step.get())
+    recalculate_space_objects_positions(space_objects, time_step.get()*1000000)
     for body in space_objects:
         update_object_position(space, body)
     physical_time += time_step.get()
@@ -123,7 +123,7 @@ def main():
     frame = tkinter.Frame(root)
     frame.pack(side=tkinter.BOTTOM)
 
-    start_button = tkinter.Button(frame, text="Start", command=start_execution, width=6)
+    start_button = tkinter.Button(frame, text="Start",activebackground="red", command=start_execution, width=6)
     start_button.pack(side=tkinter.LEFT)
 
     time_step = tkinter.DoubleVar()
