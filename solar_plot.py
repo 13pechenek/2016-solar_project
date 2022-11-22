@@ -29,6 +29,9 @@ def save_plt(i):
     plt.plot(plt_time, r_to_star[i])
     plt.savefig('objr'+str(i)+'.png')
     plt.delaxes()
+    plt.plot(r_to_star[i], abs_v[i])
+    plt.savefig('objrv'+str(i)+'.png')
+    plt.delaxes()
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
