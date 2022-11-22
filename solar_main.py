@@ -1,3 +1,8 @@
+"""
+    Основной модуль программы.
+    Отвечает за порядок исполнения программы и её интерфейс.
+"""
+
 # coding: utf-8
 # license: GPLv3
 
@@ -6,6 +11,7 @@ from tkinter.filedialog import *
 from solar_vis import *
 from solar_model import *
 from solar_input import *
+from solar_plot import *
 
 perform_execution = False
 """Флаг цикличности выполнения расчёта"""
@@ -34,7 +40,8 @@ def execution():
     """
     global physical_time
     global displayed_time
-    recalculate_space_objects_positions(space_objects, time_step.get()*10000)
+    recalculate_space_objects_positions(space_objects, time_step.get()*3600*24)
+    gen_dots(space_objects, physical_time)
     for body in space_objects:
         update_object_position(space, body)
     physical_time += time_step.get()
@@ -80,6 +87,7 @@ def open_file_dialog():
         space.delete(obj.image)  # удаление старых изображений планет
     in_filename = askopenfilename(filetypes=(("Text file", ".txt"),))
     space_objects = read_space_objects_data_from_file(in_filename)
+    gen_first_dots(space_objects, physical_time)
     max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in space_objects])
     calculate_scale_factor(max_distance)
 
@@ -141,12 +149,14 @@ def main():
     save_file_button.pack(side=tkinter.LEFT)
 
     displayed_time = tkinter.StringVar()
-    displayed_time.set(str(physical_time) + " seconds gone")
+    displayed_time.set(str(physical_time) + " days gone")
     time_label = tkinter.Label(frame, textvariable=displayed_time, width=30)
     time_label.pack(side=tkinter.RIGHT)
 
     root.mainloop()
     print('Modelling finished!')
+    for j in enumerate(space_objects):
+        save_plt(j[0])
 
 if __name__ == "__main__":
     main()
