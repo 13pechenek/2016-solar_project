@@ -22,3 +22,7 @@ def save_plt(i):
     plt.plot(plt_time, abs_v[i])
     plt.savefig('obj'+str(i)+'.png')
     plt.delaxes()
+
+
+if __name__ == "__main__":
+    print("This module is not for direct call!")
